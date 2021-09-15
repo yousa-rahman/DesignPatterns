@@ -1,19 +1,31 @@
 package com.company;
 
 import com.company.iterator.BrowseHistory;
+import com.company.iterator.Iterator;
 import com.company.momento.Editor;
 import com.company.momento.History;
 import com.company.state.Canvas;
 import com.company.state.Pencil;
+import com.company.strategy.BlackAndWhiteFilter;
+import com.company.strategy.ImageStorage;
+import com.company.strategy.JpegCompressor;
+import com.company.strategy.PngCompressor;
 
 public class Main {
 
     public static void main(String[] args) {
-        iteratorPattern();
+
+        strategyPattern();
+//        iteratorPattern();
 //        statePattern();
 //        mementoPattern();
     }
 
+    private static void strategyPattern(){
+        ImageStorage imageStorage = new ImageStorage();
+        imageStorage.store("FileName", new JpegCompressor(),new BlackAndWhiteFilter());
+        imageStorage.store("FileName", new PngCompressor(), new BlackAndWhiteFilter());
+    }
     private static void iteratorPattern() {
         BrowseHistory history = new BrowseHistory();
         history.push("a");
