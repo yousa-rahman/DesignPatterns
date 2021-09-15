@@ -1,22 +1,33 @@
 package com.company;
 
+import com.company.iterator.BrowseHistory;
 import com.company.momento.Editor;
 import com.company.momento.History;
 import com.company.state.Canvas;
 import com.company.state.Pencil;
-import com.company.state.SelectionTool;
 
 public class Main {
 
     public static void main(String[] args) {
+        iteratorPattern();
+//        statePattern();
+//        mementoPattern();
+    }
 
-        //state Pattern
-        Canvas canvas = new Canvas();
-        canvas.setCurrentTool(new Pencil());
-        canvas.mouseUp();
-        canvas.mouseDown();
+    private static void iteratorPattern() {
+        BrowseHistory history = new BrowseHistory();
+        history.push("a");
+        history.push("b");
+        history.push("c");
 
-
+        Iterator iterator = history.createIterator();
+        while(iterator.hasNext()){
+            var url = iterator.current();
+            System.out.println(url);
+            iterator.next();
+        }
+    }
+    public static void mementoPattern(){
         //Momento Pattern
         Editor editor = new Editor();
         History history = new History();
@@ -33,4 +44,13 @@ public class Main {
         System.out.println(editor.getContent());
 
     }
+    public static void statePattern(){
+        //state Pattern
+        Canvas canvas = new Canvas();
+        canvas.setCurrentTool(new Pencil());
+        canvas.mouseUp();
+        canvas.mouseDown();
+    }
+
+
 }
