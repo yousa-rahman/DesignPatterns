@@ -1,4 +1,4 @@
-package com.company.momento;
+package com.company.memento;
 
 import java.util.ArrayList;
 import java.util.List;
