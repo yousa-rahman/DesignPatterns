@@ -1,5 +1,11 @@
 package com.company;
 
+import com.company.command.*;
+import com.company.command.editor.BoldCommand;
+import com.company.command.editor.HtmlDocument;
+import com.company.command.editor.UndoCommand;
+import com.company.command.fx.Button;
+import com.company.command.fx.Command;
 import com.company.iterator.BrowseHistory;
 import com.company.iterator.Iterator;
 import com.company.momento.Editor;
@@ -19,13 +25,44 @@ public class Main {
 
     public static void main(String[] args) {
 
-        templateMethod();
+        undoableCommand();
+//        compositeCommand();
+//        commandPattern();
+//        templateMethod();
 //        strategyPattern();
 //        iteratorPattern();
 //        statePattern();
 //        mementoPattern();
     }
 
+    private static void undoableCommand() {
+        HtmlDocument document = new HtmlDocument();
+        com.company.command.editor.History history = new com.company.command.editor.History();
+        document.setContent("Hello World");
+
+        BoldCommand boldCommand = new BoldCommand(document, history);
+        boldCommand.execute();
+        System.out.println(document.getContent());
+
+        var undoCommand = new UndoCommand(history);
+        undoCommand.execute();
+        System.out.println(document.getContent());
+
+    }
+    private static void compositeCommand() {
+        CompositeCommand compositeCommand = new CompositeCommand();
+
+        compositeCommand.add(new ResizeCommand());
+        compositeCommand.add(new BlackAndWhiteCommand());
+        compositeCommand.execute();
+        compositeCommand.execute();
+    }
+    private static void commandPattern() {
+        var service = new CustomerService();
+        var command = new AddCustomerCommand(service);
+        var button = new Button(command);
+        button.click();
+    }
     private static void templateMethod() {
 
         Task task = new TransferMoney();
