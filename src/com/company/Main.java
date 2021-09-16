@@ -10,17 +10,30 @@ import com.company.strategy.BlackAndWhiteFilter;
 import com.company.strategy.ImageStorage;
 import com.company.strategy.JpegCompressor;
 import com.company.strategy.PngCompressor;
+import com.company.templateMethod.AuditTrail;
+import com.company.templateMethod.GenerateReport;
+import com.company.templateMethod.Task;
+import com.company.templateMethod.TransferMoney;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        strategyPattern();
+        templateMethod();
+//        strategyPattern();
 //        iteratorPattern();
 //        statePattern();
 //        mementoPattern();
     }
 
+    private static void templateMethod() {
+
+        Task task = new TransferMoney();
+        Task report = new GenerateReport();
+
+        task.execute();
+        report.execute();
+    }
     private static void strategyPattern(){
         ImageStorage imageStorage = new ImageStorage();
         imageStorage.store("FileName", new JpegCompressor(),new BlackAndWhiteFilter());
