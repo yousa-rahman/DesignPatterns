@@ -1,33 +1,34 @@
 package com.company;
 
-import com.company.command.*;
-import com.company.command.editor.BoldCommand;
-import com.company.command.editor.HtmlDocument;
-import com.company.command.editor.UndoCommand;
-import com.company.command.fx.Button;
-import com.company.iterator.BrowseHistory;
-import com.company.iterator.Iterator;
-import com.company.mediator.ArticlesDialogBox;
-import com.company.memento.Editor;
-import com.company.memento.History;
-import com.company.observer.Chart;
-import com.company.observer.DataSource;
-import com.company.observer.SpreadSheet;
-import com.company.state.Canvas;
-import com.company.state.Pencil;
-import com.company.strategy.BlackAndWhiteFilter;
-import com.company.strategy.ImageStorage;
-import com.company.strategy.JpegCompressor;
-import com.company.strategy.PngCompressor;
-import com.company.templateMethod.GenerateReport;
-import com.company.templateMethod.Task;
-import com.company.templateMethod.TransferMoney;
+import com.company.behaviouralPattern.chainOfResponsibility.*;
+import com.company.behaviouralPattern.command.*;
+import com.company.behaviouralPattern.command.editor.BoldCommand;
+import com.company.behaviouralPattern.command.editor.HtmlDocument;
+import com.company.behaviouralPattern.command.editor.UndoCommand;
+import com.company.behaviouralPattern.command.fx.Button;
+import com.company.behaviouralPattern.iterator.BrowseHistory;
+import com.company.behaviouralPattern.iterator.Iterator;
+import com.company.behaviouralPattern.mediator.ArticlesDialogBox;
+import com.company.behaviouralPattern.memento.Editor;
+import com.company.behaviouralPattern.memento.History;
+import com.company.behaviouralPattern.observer.Chart;
+import com.company.behaviouralPattern.observer.DataSource;
+import com.company.behaviouralPattern.observer.SpreadSheet;
+import com.company.behaviouralPattern.state.Canvas;
+import com.company.behaviouralPattern.state.Pencil;
+import com.company.behaviouralPattern.strategy.BlackAndWhiteFilter;
+import com.company.behaviouralPattern.strategy.ImageStorage;
+import com.company.behaviouralPattern.strategy.JpegCompressor;
+import com.company.behaviouralPattern.strategy.PngCompressor;
+import com.company.behaviouralPattern.templateMethod.GenerateReport;
+import com.company.behaviouralPattern.templateMethod.Task;
+import com.company.behaviouralPattern.templateMethod.TransferMoney;
 
 public class Main {
 
     public static void main(String[] args) {
-        mediatorPattern();
-
+        chainOfResponsibility();
+//        mediatorPattern();
 //        observerPattern();
 //        undoableCommand();
 //        compositeCommand();
@@ -39,13 +40,20 @@ public class Main {
 //        mementoPattern();
     }
 
+    private static void chainOfResponsibility() {
+        var compressor = new Compressor(null);
+        var logger = new Logger(compressor);
+        var authenticator = new Authenticator(logger);
+
+        var webServer = new WebServer(authenticator);
+        webServer.handle(new HttpRequest("admin","1234"));
+    }
     private static void mediatorPattern() {
         ArticlesDialogBox dialog = new ArticlesDialogBox();
 
         dialog.simulateUserInteraction();
 
     }
-
     private static void observerPattern() {
         DataSource source = new DataSource();
         SpreadSheet sheet1 = new SpreadSheet(source);
@@ -60,7 +68,7 @@ public class Main {
     }
     private static void undoableCommand() {
         HtmlDocument document = new HtmlDocument();
-        com.company.command.editor.History history = new com.company.command.editor.History();
+        com.company.behaviouralPattern.command.editor.History history = new com.company.behaviouralPattern.command.editor.History();
         document.setContent("Hello World");
 
         BoldCommand boldCommand = new BoldCommand(document, history);
@@ -112,6 +120,13 @@ public class Main {
             iterator.next();
         }
     }
+    public static void statePattern(){
+        //state Pattern
+        Canvas canvas = new Canvas();
+        canvas.setCurrentTool(new Pencil());
+        canvas.mouseUp();
+        canvas.mouseDown();
+    }
     public static void mementoPattern(){
         //Momento Pattern
         Editor editor = new Editor();
@@ -128,13 +143,6 @@ public class Main {
 
         System.out.println(editor.getContent());
 
-    }
-    public static void statePattern(){
-        //state Pattern
-        Canvas canvas = new Canvas();
-        canvas.setCurrentTool(new Pencil());
-        canvas.mouseUp();
-        canvas.mouseDown();
     }
 
 
