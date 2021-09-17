@@ -7,6 +7,7 @@ import com.company.command.editor.UndoCommand;
 import com.company.command.fx.Button;
 import com.company.iterator.BrowseHistory;
 import com.company.iterator.Iterator;
+import com.company.mediator.ArticlesDialogBox;
 import com.company.memento.Editor;
 import com.company.memento.History;
 import com.company.observer.Chart;
@@ -25,8 +26,9 @@ import com.company.templateMethod.TransferMoney;
 public class Main {
 
     public static void main(String[] args) {
+        mediatorPattern();
 
-        observerPattern();
+//        observerPattern();
 //        undoableCommand();
 //        compositeCommand();
 //        commandPattern();
@@ -35,6 +37,13 @@ public class Main {
 //        iteratorPattern();
 //        statePattern();
 //        mementoPattern();
+    }
+
+    private static void mediatorPattern() {
+        ArticlesDialogBox dialog = new ArticlesDialogBox();
+
+        dialog.simulateUserInteraction();
+
     }
 
     private static void observerPattern() {
@@ -49,7 +58,6 @@ public class Main {
 
         source.setValue(10);
     }
-
     private static void undoableCommand() {
         HtmlDocument document = new HtmlDocument();
         com.company.command.editor.History history = new com.company.command.editor.History();
