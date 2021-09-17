@@ -9,6 +9,9 @@ import com.company.iterator.BrowseHistory;
 import com.company.iterator.Iterator;
 import com.company.memento.Editor;
 import com.company.memento.History;
+import com.company.observer.Chart;
+import com.company.observer.DataSource;
+import com.company.observer.SpreadSheet;
 import com.company.state.Canvas;
 import com.company.state.Pencil;
 import com.company.strategy.BlackAndWhiteFilter;
@@ -23,7 +26,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        undoableCommand();
+        observerPattern();
+//        undoableCommand();
 //        compositeCommand();
 //        commandPattern();
 //        templateMethod();
@@ -31,6 +35,19 @@ public class Main {
 //        iteratorPattern();
 //        statePattern();
 //        mementoPattern();
+    }
+
+    private static void observerPattern() {
+        DataSource source = new DataSource();
+        SpreadSheet sheet1 = new SpreadSheet(source);
+        SpreadSheet sheet2 = new SpreadSheet(source);
+        Chart chart = new Chart(source);
+
+        source.addObserver(sheet1);
+        source.addObserver(sheet2);
+        source.addObserver(chart);
+
+        source.setValue(10);
     }
 
     private static void undoableCommand() {
