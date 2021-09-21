@@ -23,23 +23,61 @@ import com.company.behaviouralPattern.strategy.PngCompressor;
 import com.company.behaviouralPattern.templateMethod.GenerateReport;
 import com.company.behaviouralPattern.templateMethod.Task;
 import com.company.behaviouralPattern.templateMethod.TransferMoney;
+import com.company.behaviouralPattern.visitor.AnchorNode;
+import com.company.behaviouralPattern.visitor.HeadingNode;
+import com.company.behaviouralPattern.visitor.HighlightOperation;
+import com.company.behaviouralPattern.visitor.PlainTextOperation;
+import com.company.structural.composite.Group;
+import com.company.structural.composite.Shape;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        //STRUCTURAL PATTERN
+        compositePattern();
+
+        //BEHAVIOURAL PATTERN
+       /* visitorPattern();
         chainOfResponsibility();
-//        mediatorPattern();
-//        observerPattern();
-//        undoableCommand();
-//        compositeCommand();
-//        commandPattern();
-//        templateMethod();
-//        strategyPattern();
-//        iteratorPattern();
-//        statePattern();
-//        mementoPattern();
+        mediatorPattern();
+        observerPattern();
+        undoableCommand();
+        compositeCommand();
+        commandPattern();
+        templateMethod();
+        strategyPattern();
+        iteratorPattern();
+        statePattern();
+        mementoPattern(); */
     }
 
+    private static void compositePattern() {
+        var group1 = new Group();
+        group1.add(new Shape());
+        group1.add(new Shape());
+
+        var group2 = new Group();
+        group2.add(new Shape());
+        group2.add(new Shape());
+
+        var group = new Group();
+        group.add(group1);
+        group.add(group2);
+        group.render();
+        group.move();
+    }
+
+
+    //BEHAVIOURAL PATTERN
+    private static void visitorPattern() {
+        var document = new com.company.behaviouralPattern.visitor.HtmlDocument();
+        document.add(new HeadingNode());
+        document.add(new AnchorNode());
+
+        document.execute(new HighlightOperation());
+        document.execute(new PlainTextOperation());
+    }
     private static void chainOfResponsibility() {
         var compressor = new Compressor(null);
         var logger = new Logger(compressor);
