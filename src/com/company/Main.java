@@ -27,6 +27,11 @@ import com.company.behaviouralPattern.visitor.AnchorNode;
 import com.company.behaviouralPattern.visitor.HeadingNode;
 import com.company.behaviouralPattern.visitor.HighlightOperation;
 import com.company.behaviouralPattern.visitor.PlainTextOperation;
+import com.company.structural.adapter.CaramelFilter;
+import com.company.structural.adapter.Image;
+import com.company.structural.adapter.ImageViewer;
+import com.company.structural.adapter.VividFilter;
+import com.company.structural.adapter.thirdPartyFilters.Caramel;
 import com.company.structural.composite.Group;
 import com.company.structural.composite.Shape;
 
@@ -34,8 +39,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //STRUCTURAL PATTERN
-        compositePattern();
+        //STRUCTURAL PATTERNS
+        adapterPattern();
+//        compositePattern();
 
         //BEHAVIOURAL PATTERN
        /* visitorPattern();
@@ -52,6 +58,11 @@ public class Main {
         mementoPattern(); */
     }
 
+    //STRUCTURAL PATTERNS
+    private static void adapterPattern() {
+        var imageViewer = new ImageViewer(new Image());
+        imageViewer.apply(new CaramelFilter(new Caramel()));
+    }
     private static void compositePattern() {
         var group1 = new Group();
         group1.add(new Shape());
@@ -69,7 +80,7 @@ public class Main {
     }
 
 
-    //BEHAVIOURAL PATTERN
+    //BEHAVIOURAL PATTERNS
     private static void visitorPattern() {
         var document = new com.company.behaviouralPattern.visitor.HtmlDocument();
         document.add(new HeadingNode());
