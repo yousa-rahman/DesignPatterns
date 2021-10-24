@@ -40,7 +40,7 @@ public class Main {
     public static void main(String[] args) {
 
         //STRUCTURAL PATTERNS
-        adapterPattern();
+//        adapterPattern();
 //        compositePattern();
 
         //BEHAVIOURAL PATTERN
@@ -53,9 +53,8 @@ public class Main {
         commandPattern();
         templateMethod();
         strategyPattern();
-        iteratorPattern();
+        iteratorPattern();*/
         statePattern();
-        mementoPattern(); */
     }
 
     //STRUCTURAL PATTERNS
@@ -175,23 +174,6 @@ public class Main {
         canvas.setCurrentTool(new Pencil());
         canvas.mouseUp();
         canvas.mouseDown();
-    }
-    public static void mementoPattern(){
-        //Momento Pattern
-        Editor editor = new Editor();
-        History history = new History();
-
-        editor.setContent("a");
-        history.push(editor.createState());
-
-        editor.setContent("b");
-        history.push(editor.createState());
-
-        editor.setContent("c");
-        editor.restore(history.pop());
-
-        System.out.println(editor.getContent());
-
     }
 
 

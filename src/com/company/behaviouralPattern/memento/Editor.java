@@ -8,7 +8,8 @@ public class Editor {
     }
 
     public void restore(EditorState state){
-        content = state.getContent();
+        if(state != null)
+            content = state.getContent();
     }
 
     public void  setContent(String input) {

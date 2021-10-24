@@ -11,11 +11,16 @@ public class History {
     }
 
     public  EditorState pop(){
-        var lastIndex = states.size() - 1;
-        var lastState = states.get(lastIndex);
-        states.remove(lastState);
+        EditorState lastState = null;
 
+        if(states.size() > 0){
+            var lastIndex = states.size() - 1;
+            lastState = states.get(lastIndex);
+            states.remove(lastState);
+            return lastState;
+        }
         return lastState;
+
     }
 
 }
